@@ -6,6 +6,9 @@ from pathlib import Path
 
 from face_compare.images import get_face
 from face_compare.model import facenet_model, img_to_encoding
+# include hdf5 disable function
+import os 
+os.environ['HDF5_DISABLE_VERSION_CHECK']='2'
 
 # load model
 model = facenet_model(input_shape=(3, 96, 96))
@@ -27,7 +30,7 @@ def run(image_one, image_two, save_dest=None):
 
     dist = np.linalg.norm(embedding_one - embedding_two)
     print(f'Distance between two images is {dist}')
-    if dist > 0.7:
+    if dist > 0.95:
         print('These images are of two different people!')
     else:
         print('These images are of the same person!')
